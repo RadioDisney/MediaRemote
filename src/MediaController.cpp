@@ -89,12 +89,34 @@ void OnM5Button(int16_t pin, ButtonState state, uint32_t durationMs)
     }
 }
 
+void OnUpButton(int16_t pin, ButtonState state, uint32_t durationMs)
+{
+    switch (state)
+    {
+    case release:
+        if (durationMs < BUTTON_ACTION_INTERVAL)
+        {
+            if (bleKeyboard.isConnected())
+                bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
+        }
+        break;
+    default:
+        break;
+    }
+}
 
-
-        // if (durationMs < 700) // durationMs < 700
-        // {
-        //     if (bleKeyboard.isConnected())
-        //     {
-        //         bleKeyboard.write(KEY_MEDIA_PLAY_PAUSE);
-        //     }
-        // }
+void OnDownButton(int16_t pin, ButtonState state, uint32_t durationMs)
+{
+    switch (state)
+    {
+    case release:
+        if (durationMs < BUTTON_ACTION_INTERVAL)
+        {
+            if (bleKeyboard.isConnected())
+                bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
+        }
+        break;
+    default:
+        break;
+    }
+}

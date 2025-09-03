@@ -15,6 +15,8 @@ HumanInterface::HumanInterface(/* args */)
 void HumanInterface::begin()
 {
     ioButtons[M5_BUTTON_PIN].OnButton = OnM5Button;
+    ioButtons[UP_BUTTON_PIN].OnButton = OnUpButton;
+    ioButtons[DOWN_BUTTON_PIN].OnButton = OnDownButton;
 }
 
 HumanInterface::~HumanInterface()
