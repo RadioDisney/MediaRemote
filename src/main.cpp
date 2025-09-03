@@ -17,7 +17,7 @@ void setup()
 
   pinMode(BUZZER_PIN, OUTPUT);
 
-  for (uint16_t i = 0; i < 500; i++)
+  for (uint16_t i = 0; i < 200; i++)
   {
     digitalWrite(BUZZER_PIN, HIGH);
     delay(1);
