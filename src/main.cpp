@@ -5,7 +5,7 @@
 #define POWER_HOLD_PIN 4
 #define BUZZER_PIN 2
 
-BleKeyboard bleKeyboard;
+BleKeyboard bleKeyboard("MediaRemote", "RD", 100);
 
 void setup()
 {

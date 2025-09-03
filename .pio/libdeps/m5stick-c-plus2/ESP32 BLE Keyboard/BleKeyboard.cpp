@@ -135,7 +135,8 @@ void BleKeyboard::begin(void)
 	onStarted(pServer);
 
 	advertising = pServer->getAdvertising();
-	advertising->setAppearance(HID_KEYBOARD);
+	advertising->setName(deviceName.c_str());
+	advertising->setAppearance(HID_GAMEPAD);
 	advertising->addServiceUUID(hid->hidService()->getUUID());
 #ifndef USE_NIMBLE
 	advertising->setScanResponse(false);
@@ -556,16 +557,18 @@ void BleKeyboard::onDisconnect(BLEServer *pServer)
 {
 	this->connected = false;
 
-#if !defined(USE_NIMBLE)
+#ifdef USE_NIMBLE
 
+	advertising->start();
+
+#else
 	BLE2902 *desc = (BLE2902 *)this->inputKeyboard->getDescriptorByUUID(BLEUUID((uint16_t)0x2902));
 	desc->setNotifications(false);
 	desc = (BLE2902 *)this->inputMediaKeys->getDescriptorByUUID(BLEUUID((uint16_t)0x2902));
 	desc->setNotifications(false);
 
 	advertising->start();
-
-#endif // !USE_NIMBLE
+#endif // USE_NIMBLE
 }
 
 #ifdef USE_NIMBLE
