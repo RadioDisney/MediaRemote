@@ -29,6 +29,8 @@ public:
 
     void SetEnable(bool enable);
 
+    uint64_t GetLastInputTimeMs();
+
     ~HumanInterface();
 };
 

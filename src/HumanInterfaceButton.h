@@ -28,6 +28,8 @@ public:
 
     virtual void SetEnable (bool enable);
     virtual bool GetEnable() { return enabled_; }
+
+    uint64_t GetReleaseTimeMs() const { return releaseTimeMs_; }
 };
 
 #endif

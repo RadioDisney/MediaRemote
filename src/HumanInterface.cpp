@@ -35,6 +35,22 @@ void HumanInterface::SetEnable(bool enable)
     }
 }
 
+uint64_t HumanInterface::GetLastInputTimeMs()
+{
+    uint64_t lastInputTimeMs = 0;
+
+    for (std::map<int16_t, HumanInterfaceIOButton>::iterator it = ioButtons.begin();
+         it != ioButtons.end(); ++it)
+    {
+        if (it->second.GetReleaseTimeMs() > lastInputTimeMs)
+        {
+            lastInputTimeMs = it->second.GetReleaseTimeMs();
+        }
+    }
+    
+    return lastInputTimeMs;
+}
+
 void HumanInterface::loop()
 {
     for (std::map<int16_t, HumanInterfaceIOButton>::iterator it = ioButtons.begin();

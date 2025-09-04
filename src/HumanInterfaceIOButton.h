@@ -8,6 +8,7 @@ class HumanInterfaceIOButton : public HumanInterfaceButton
 {
 private:
     int16_t pin_;
+
 protected:
     void loop() override;
 

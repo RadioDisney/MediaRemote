@@ -6,6 +6,13 @@
 
 #define POWER_HOLD_PIN 4
 #define BUZZER_PIN 2
+#define SECOND_INTERVAL 1000
+#define MINUTE_INTERVAL (60 * 1000)
+#define POWER_OFF_TIMEOUT (10 * 60 * 1000) // 10 minutes
+
+uint64_t secondTimer;
+uint64_t minuteTimer;
+
 
 const char melodyString[] = "intel:d=8,o=6,b=180:4g,p,c,e,c,4c7.";
 
@@ -21,14 +28,17 @@ void setup()
   digitalWrite(POWER_HOLD_PIN, HIGH);
 
   Melody melody = MelodyFactory.loadRtttlString(melodyString);
-  if (melody) {
+  if (melody)
+  {
     Serial.println("Done!");
     Serial.print("Playing ");
     Serial.print(melody.getTitle());
     Serial.print("... ");
     player.play(melody);
     Serial.println("Done!");
-  } else {
+  }
+  else
+  {
     Serial.println("Error");
   }
 
@@ -40,6 +50,23 @@ void loop()
 {
   humanInterface.loop();
   rd_coroutine.loop();
+
+  if (millis() > secondTimer)
+  {
+    secondTimer += SECOND_INTERVAL;
+    // Serial.println("Second timer");
+  }
+
+  if (millis() > minuteTimer)
+  {
+    minuteTimer += MINUTE_INTERVAL;
+    // Serial.println("Minute timer");
+
+    if ((millis() - humanInterface.GetLastInputTimeMs() > POWER_OFF_TIMEOUT))
+    {
+      digitalWrite(POWER_HOLD_PIN, LOW);
+    }
+  }
   
   delay(10);
 }
