@@ -135,10 +135,16 @@ void BleKeyboard::begin(void)
 	onStarted(pServer);
 
 	advertising = pServer->getAdvertising();
-	advertising->setName(deviceName.c_str());
-	advertising->setAppearance(HID_GAMEPAD);
+	advertising->setDiscoverableMode(BLE_GAP_DISC_MODE_LTD);
+	advertising->setAppearance(0x0180);			// HID_GAMEPAD
 	advertising->addServiceUUID(hid->hidService()->getUUID());
-#ifndef USE_NIMBLE
+	advertising->addServiceUUID(hid->getBatteryService()->getUUID());
+	static const uint8_t manufacturerData[] = {0x2D, 0x01, 0x01, 0x00};
+	advertising->setManufacturerData(manufacturerData, sizeof(manufacturerData));
+	advertising->setName(deviceName.c_str());
+#ifdef USE_NIMBLE
+	// advertising->setScanResponseData((uint8_t *)_hidScanResponse, sizeof(_hidScanResponse));
+#else
 	advertising->setScanResponse(false);
 #endif
 	advertising->start();

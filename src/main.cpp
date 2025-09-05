@@ -17,7 +17,7 @@ uint64_t minuteTimer;
 const char melodyString[] = "intel:d=8,o=6,b=180:4g,p,c,e,c,4c7.";
 
 MelodyPlayer player(BUZZER_PIN);
-BleKeyboard bleKeyboard("MediaRemote", "RD", 100);
+BleKeyboard bleKeyboard("RMT-NWS10B", "RD", 100);
 
 void setup()
 {
