@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "HumanInterfaceIOButton.h"
 
-#define BUTTON_ACTION_INTERVAL 300
+#define BUTTON_ACTION_INTERVAL 200
 
 void OnM5Button(int16_t pin, ButtonState state, uint32_t durationMs);
 void OnUpButton(int16_t pin, ButtonState state, uint32_t durationMs);

@@ -3,9 +3,8 @@
 #include <BleKeyboard.h>
 #include "HumanInterface.h"
 #include "RD_Coroutine.h"
+#include "GpioDefine.h"
 
-#define POWER_HOLD_PIN 4
-#define BUZZER_PIN 2
 #define SECOND_INTERVAL 1000
 #define MINUTE_INTERVAL (60 * 1000)
 #define POWER_OFF_TIMEOUT (10 * 60 * 1000) // 10 minutes
@@ -41,6 +40,10 @@ void setup()
   {
     Serial.println("Error");
   }
+
+  // 2000 is a frequency, it will be changed at the first play
+  ledcAttachChannel(BUZZER_PIN, 1000, 8, 1);
+  ledcWriteTone(BUZZER_PIN, 0);
 
   bleKeyboard.begin();
   humanInterface.begin();

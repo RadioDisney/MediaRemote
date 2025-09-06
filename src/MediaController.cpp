@@ -1,6 +1,7 @@
 #include "MediaController.h"
 
 #include <BleKeyboard.h>
+#include "GpioDefine.h"
 #include "SerialDefine.h"
 #include "RD_Coroutine.h"
 
@@ -35,6 +36,7 @@ void OnM5Button(int16_t pin, ButtonState state, uint32_t durationMs)
     case release:
     {
         // CONSOLE_PRINTF("durationMs : %u\n", durationMs);
+        ledcWriteTone(BUZZER_PIN, 0);
         if (durationMs < BUTTON_ACTION_INTERVAL)
         {
             actionCount++;
@@ -73,6 +75,7 @@ void OnM5Button(int16_t pin, ButtonState state, uint32_t durationMs)
     case press:
     {
         // CONSOLE_PRINTF("durationMs : %u\n", durationMs);
+        ledcWriteTone(BUZZER_PIN, 440);
         if (durationMs < BUTTON_ACTION_INTERVAL)
         {
             actionCount++;
